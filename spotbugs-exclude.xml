@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FindBugsFilter>
+  <!-- Ignore “may expose internal representation” in AssetController -->
+  <Match>
+    <Class name="com.melog.clearpass.asset.AssetController"/>
+    <Bug pattern="EI_EXPOSE_REP2"/>
+  </Match>
+</FindBugsFilter>

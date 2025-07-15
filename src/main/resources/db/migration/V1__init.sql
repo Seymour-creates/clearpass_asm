@@ -1,0 +1,6 @@
+CREATE TABLE assets (
+  id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  serial VARCHAR(64) NOT NULL,
+  description VARCHAR(255) NOT NULL,
+  required_clearance VARCHAR(32) NOT NULL
+);

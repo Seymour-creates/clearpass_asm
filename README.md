@@ -60,7 +60,7 @@ mvn spring-boot:run
 
 ## 🛠️ To-Do
 
-- [ ] Global exception handler
+- [X] Global exception handler
 - [ ] Authentication & Authorization
 - [ ] Input validation and DTOs
 - [ ] Unit & integration tests

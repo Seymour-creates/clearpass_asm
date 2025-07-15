@@ -1,6 +1,7 @@
 package com.melog.clearpass.asset;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -36,5 +37,9 @@ public class AssetService {
         a.setDescription(newData.getDescription());
         a.setRequiredClearance(newData.getRequiredClearance());
         return repo.save(a);
+    }
+
+    public Optional<Asset> getAssetById(Long id) {
+        return repo.findById(id);
     }
 }

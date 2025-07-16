@@ -1,4 +1,4 @@
-package com.melog.clearpass.asset;
+package com.melog.clearpass.common;
 
 /**
  * Clearance categories supported by ClearPass.

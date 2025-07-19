@@ -3,11 +3,11 @@ package com.melog.clearpass;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
-class ClearPassApplicationTests {
+@SpringBootTest(classes = ClearPassAssetApplication.class)
+class ClearPassAssetApplicationTests {
 
-	@Test
-	void contextLoads() {
-	}
+    @Test
+    void contextLoads() {
+    }
 
 }

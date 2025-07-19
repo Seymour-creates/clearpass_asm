@@ -11,9 +11,9 @@
     <relativePath>../../pom.xml</relativePath>
   </parent>
 
-  <artifactId>asset-service</artifactId>
-  <name>ClearPass :: Asset Service</name>
-  <description>CRUD + business logic for Assets</description>
+  <artifactId>user-service</artifactId>
+  <name>ClearPass :: User Service</name>
+  <description>CRUD + business logic for Users</description>
   <packaging>jar</packaging>
 
   <dependencies>
@@ -22,12 +22,6 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-data-jpa</artifactId>
     </dependency>
-
-    <dependency>
-       <groupId>org.flywaydb</groupId>
-       <artifactId>flyway-core</artifactId>
-   </dependency>
-   
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
@@ -66,6 +60,11 @@
         <artifactId>spring-boot-starter-test</artifactId>
         <scope>test</scope>
     </dependency>
+
+    <dependency>
+      <groupId>org.flywaydb</groupId>
+      <artifactId>flyway-core</artifactId>
+    </dependency>
   </dependencies>
 
   <build>
@@ -86,5 +85,4 @@
       </plugin>
     </plugins>
   </build>
-</project>
-
+</project> 

@@ -117,6 +117,7 @@
 
   <modules>
     <module>services/asset-service</module>
+    <module>services/user-service</module>
     <module>libs/common</module>
   </modules>
 </project>

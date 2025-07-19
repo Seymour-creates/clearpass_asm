@@ -1,0 +1,27 @@
+version: '3.8'
+services:
+  user-service:
+    build:
+      context: .
+      dockerfile: services/user-service/Dockerfile
+    ports:
+      - "8081:8080"
+    networks:
+      - clearpass-net
+
+  asset-service:
+    build:
+      context: .
+      dockerfile: services/asset-service/Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - user.service.url=http://user-service:8080
+    depends_on:
+      - user-service
+    networks:
+      - clearpass-net
+
+networks:
+  clearpass-net:
+    driver: bridge

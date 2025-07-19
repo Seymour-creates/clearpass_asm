@@ -8,7 +8,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-
+import com.melog.clearpass.asset.model.Asset;
+import com.melog.clearpass.asset.repository.AssetRepository;
 import com.melog.clearpass.common.ClearanceLevel;
 
 
@@ -26,6 +27,7 @@ class AssetRepositoryTest {
                 .serial("A-001")
                 .description("Test asset")
                 .requiredClearance(ClearanceLevel.UNCLASSIFIED)
+                .userId(1L)
                 .build()
         );
         assertThat(saved.getId()).isNotNull();
@@ -40,7 +42,7 @@ class AssetRepositoryTest {
 
     @Test
     void updateAsset() {
-        Asset saved = repo.save(new Asset(null, "A-010", "Original", ClearanceLevel.UNCLASSIFIED));
+        Asset saved = repo.save(new Asset(null, "A-010", "Original", ClearanceLevel.UNCLASSIFIED, 1L));
 
         saved.setDescription("Updated desc");
         repo.save(saved);                    // JPA treats this as update
@@ -54,7 +56,7 @@ class AssetRepositoryTest {
 
     @Test
     void deleteAsset() {
-        Asset saved = repo.save(new Asset(null, "A-011", "To-delete", ClearanceLevel.CONFIDENTIAL));
+        Asset saved = repo.save(new Asset(null, "A-011", "To-delete", ClearanceLevel.CONFIDENTIAL, 1L));
 
         repo.deleteById(saved.getId());
 

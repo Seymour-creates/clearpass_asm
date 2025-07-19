@@ -1,4 +1,4 @@
-package com.melog.clearpass.asset;
+package com.melog.clearpass.asset.controller;
 
 import java.util.List;
 
@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.melog.clearpass.asset.model.Asset;
+import com.melog.clearpass.asset.service.AssetService;
 
 import jakarta.validation.Valid;
 

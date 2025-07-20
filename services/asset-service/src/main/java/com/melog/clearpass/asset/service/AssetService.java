@@ -6,12 +6,15 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.melog.clearpass.asset.exception.AssetSerialAlreadyExistsException;
 import com.melog.clearpass.common.exception.ResourceNotFoundException;
 import com.melog.clearpass.asset.model.Asset;
 import com.melog.clearpass.asset.repository.AssetRepository;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
 
 @Service
@@ -25,18 +28,40 @@ public class AssetService {
     
     public AssetService(AssetRepository repo) { this.repo = repo; }
 
-    public Asset create(Asset a) {
+    public Asset create(Asset asset) {
+        // Extract userId from JWT token stored in request attributes
+        Long userId = getUserIdFromRequest();
+        if (userId == null) {
+            throw new RuntimeException("User ID not found in token");
+        }
+        
+        // Set the userId from the token
+        asset.setUserId(userId);
+        
         // Validate user exists via user-service
-        String url = userServiceUrl + "/api/users/" + a.getUserId();
+        String url = userServiceUrl + "/api/users/" + userId;
         try {
             restTemplate.getForObject(url, Object.class);
         } catch (Exception ex) {
-            throw new ResourceNotFoundException("User", a.getUserId());
+            throw new ResourceNotFoundException("User", userId);
         }
-        if (repo.existsBySerial(a.getSerial())) {
-            throw new AssetSerialAlreadyExistsException(a.getSerial());
+        
+        if (repo.existsBySerial(asset.getSerial())) {
+            throw new AssetSerialAlreadyExistsException(asset.getSerial());
         }
-        return repo.save(a);
+        return repo.save(asset);
+    }
+
+    private Long getUserIdFromRequest() {
+        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        if (attributes != null) {
+            HttpServletRequest request = attributes.getRequest();
+            Object userId = request.getAttribute("userId");
+            if (userId instanceof Long) {
+                return (Long) userId;
+            }
+        }
+        return null;
     }
 
     public void delete(Long id) { repo.deleteById(id); }
